@@ -1,0 +1,109 @@
+clear all;
+close all;
+clc
+
+% Load data
+load  ../data/data
+
+set(0,'defaultfigurecolor',[1 1 1 ])
+
+t1              = (1961:((2021 - 1961)/729):2021);  
+t2              = (1963:((2021 - 1963)/705):2021);  
+t3              = (1971:((2021 - 1971)/609):2021);  
+
+x_lim =  [t1(1) t1(end)];
+x_lim1 = [t2(1) t2(end)];
+x_lim2 = [t3(1) t3(end)];
+
+
+y_lim = [-20,50];
+y_lim_2 = [-20,70];
+y_ticks = [-20 -10 0 10 20 30  40 50];
+y_ticks_2 = [-20 -10 0 10 20 30  40 50 60 70];
+
+
+figure(1)
+plot_fra = subplot(1,1,1);
+plot(t1,eng_infl_FRA,'color',[0.0 0.4 0.7],'LineWidth',2);
+set(plot_fra,'XLim',x_lim);
+set(plot_fra,'Ylim',y_lim,'YTick',y_ticks,'YTickLabel',y_ticks);
+set(plot_fra,'FontName','times','FontSize',15);
+%grid on
+% title of plot (a)
+title('Energy inflation: France','FontName','times','FontSize',15)
+xtickangle(45);
+set(gca,'box','off')
+
+saveas(gcf,'../results/EI_fra','epsc')
+
+% Energy inflation: Germany
+figure(2)
+plot_ger = subplot(1,1,1);
+plot(t2,eng_infl_GER,'color',[0.0 0.4 0.7],'LineWidth',2);
+set(plot_ger,'XLim',x_lim1);
+set(plot_ger,'Ylim',y_lim,'YTick',y_ticks,'YTickLabel',y_ticks);
+set(plot_ger,'FontName','times','FontSize',15);
+% title of plot (a)
+title('Energy inflation: Germany','FontName','times','FontSize',15)
+xtickangle(45);
+set(gca,'box','off')
+
+saveas(gcf,'../results/EI_ger','epsc')
+
+% Energy inflation: Italy
+figure(3)
+plot_ita = subplot(1,1,1);
+plot(t1,eng_infl_ITA,'color',[0.0 0.4 0.7],'LineWidth',2);
+set(plot_ita,'XLim',x_lim);
+set(plot_ita,'Ylim',y_lim_2,'YTick',y_ticks_2,'YTickLabel',y_ticks_2);
+set(plot_ita,'FontName','times','FontSize',15);
+% title of plot (a)
+title('Energy inflation: Italy','FontName','times','FontSize',15)
+xtickangle(45);
+set(gca,'box','off')
+
+saveas(gcf,'../results/EI_ita','epsc')
+
+% Energy inflation: Japan
+figure(4)
+plot_jpn = subplot(1,1,1);
+plot(t1,eng_infl_JPN,'color',[0.0 0.4 0.7],'LineWidth',2);
+set(plot_jpn,'XLim',x_lim);
+set(plot_jpn,'Ylim',y_lim,'YTick',y_ticks,'YTickLabel',y_ticks);
+set(plot_jpn,'FontName','times','FontSize',15);
+% title of plot (a)
+title('Energy inflation: Japan','FontName','times','FontSize',15)
+xtickangle(45);
+set(gca,'box','off')
+saveas(gcf,'../results/EI_jpn','epsc')
+
+
+% Energy inflation: US
+figure(5)
+plot_us = subplot(1,1,1);
+plot(t1,eng_infl_US,'color',[0.0 0.4 0.7],'LineWidth',2);
+set(plot_us,'XLim',x_lim);
+set(plot_us,'Ylim',y_lim,'YTick',y_ticks,'YTickLabel',y_ticks);
+    % this sets font properties
+set(plot_us,'FontName','times','FontSize',15);
+%grid on
+% title of plot (a)
+title('Energy inflation: US','FontName','times','FontSize',15)
+xtickangle(45);
+set(gca,'box','off')
+saveas(gcf,'../results/EI_us','epsc')
+
+Energy inflation: UK
+figure(6)
+plot_uk = subplot(1,1,1);
+plot(t3,eng_infl_UK,'color',[0.0 0.4 0.7],'LineWidth',2);
+set(plot_uk,'XLim',x_lim2);
+set(plot_uk,'Ylim',y_lim,'YTick',y_ticks,'YTickLabel',y_ticks);
+    % this sets font properties
+set(plot_uk,'FontName','times','FontSize',15);
+%grid on
+% title of plot (a)
+title('Energy inflation: UK','FontName','times','FontSize',15)
+xtickangle(45);
+set(gca,'box','off')
+saveas(gcf,'../results/EI_uk','epsc')
