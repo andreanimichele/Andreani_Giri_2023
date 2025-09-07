@@ -29,12 +29,12 @@ To ensure smooth operation, use relative paths when running the scripts.
 1. **Clone the Repository:**  
    - Clone this repository to your local machine.
 
-2. **R Script: `r_script.R`**  
+2. **get_data.R**  
    - Downloads monthly energy inflation data from FRED for France, Germany, Italy, Japan, the UK, and the US.  
    - Merges the datasets by `observation_date` and computes **year-over-year (YoY)** growth.  
    - Saves processed data to `data/data.xlsx`.
 
-3. **MATLAB Script: `matlab_script.m`**  
+3. **results.m**  
    - Loads `data/data.xlsx` containing YoY energy inflation.  
    - Generates time series charts for each country (`EI_<country>.eps`).  
    - Performs **wavelet power spectrum (WPS) analysis**:
