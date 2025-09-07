@@ -1,8 +1,16 @@
+% Time series chart, YoY data on energy inflation
+% Wavelet power spectra estimation
+% This code creates charts presented in figures 1 and 2 of the paper
+
+% Not a short-run noise! The low-frequency volatility of energy inflation
+% Michele Andreani, Federico Giri
+% Università Politecnica delle Marche, Piazzale Martelli n 8 Ancona, Italy
+
+% Finance Research Letters 51 (2023) 103477
+
 clear all;
 close all;
 clc;
-
-addpath("atw_functions");
 
 res_path = '../results';
 
@@ -14,15 +22,89 @@ end
 data = xlsread("../data/data.xlsx");
 data = data(:,2:end);
 
-set(0,'defaultfigurecolor',[1 1 1 ]);
+set(0,'defaultfigurecolor',[1 1 1 ])
 
-% t1 = datetime("1971-01-01");
-% tend = datetime("2025-04-01");
-% T = t1:calmonths:tend;
+% Double date vector (monthly)
+T = 1971:1/12:2021 + 5/12;
 
-t1 = 1971:0.25:2025.25;
+%%%%%%%%%%%%%%%%%%%%%%%%%%% Figures: raw data %%%%%%%%%%%%%%%%%%%%%
 
-% AWT parameters
+% Energy inflation: France
+figure;
+plot_fra = subplot(1,1,1);
+plot(T,data(:,1),'color',[0.0 0.4 0.7],'LineWidth',2);
+set(plot_fra,'FontName','times','FontSize',15);
+title('Energy inflation: France','FontName','times','FontSize',15)
+xtickangle(45);
+set(gca,'box','off')
+axis tight;
+
+saveas(gcf,'../results/EI_fra','epsc')
+
+% Energy inflation: Germany
+figure;
+plot_ger = subplot(1,1,1);
+plot(T,data(:,2),'color',[0.0 0.4 0.7],'LineWidth',2);
+set(plot_ger,'FontName','times','FontSize',15);
+title('Energy inflation: Germany','FontName','times','FontSize',15)
+xtickangle(45);
+set(gca,'box','off')
+axis tight;
+
+saveas(gcf,'../results/EI_ger','epsc')
+
+% Energy inflation: Italy
+figure;
+plot_ita = subplot(1,1,1);
+plot(T,data(:,3),'color',[0.0 0.4 0.7],'LineWidth',2);
+set(plot_ita,'FontName','times','FontSize',15);
+title('Energy inflation: Italy','FontName','times','FontSize',15)
+xtickangle(45);
+set(gca,'box','off')
+axis tight;
+
+saveas(gcf,'../results/EI_ita','epsc')
+
+% Energy inflation: Japan
+figure;
+plot_jpn = subplot(1,1,1);
+plot(T,data(:,4),'color',[0.0 0.4 0.7],'LineWidth',2);
+set(plot_jpn,'FontName','times','FontSize',15);
+title('Energy inflation: Japan','FontName','times','FontSize',15)
+xtickangle(45);
+set(gca,'box','off')
+axis tight;
+
+saveas(gcf,'../results/EI_jpn','epsc')
+
+% Energy inflation: UK
+figure;
+plot_uk = subplot(1,1,1);
+plot(T,data(:,5),'color',[0.0 0.4 0.7],'LineWidth',2);
+set(plot_uk,'FontName','times','FontSize',15);
+title('Energy inflation: UK','FontName','times','FontSize',15)
+xtickangle(45);
+set(gca,'box','off')
+axis tight;
+
+saveas(gcf,'../results/EI_uk','epsc')
+
+
+% Energy inflation: US
+figure;
+plot_us = subplot(1,1,1);
+plot(T,data(:,6),'color',[0.0 0.4 0.7],'LineWidth',2);
+set(plot_us,'FontName','times','FontSize',15);
+title('Energy inflation: US','FontName','times','FontSize',15)
+xtickangle(45);
+set(gca,'box','off')
+axis tight;
+
+saveas(gcf,'../results/EI_us','epsc')
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% AWT parameters %%%%%%%%%%%%%%%%%%%%%
+
 dt         = 1;
 dj         = 1/50;
 low_period = 2;
@@ -35,7 +117,7 @@ alpha       = 0.05;
 % mc replications, may take long
 sig_type    ='MCS'; %AR1, AR0
 % n_sur       = 2000;
-n_sur       = 100;
+n_sur       = 10;
 p           = 1; 
 q           = 0;
 
@@ -43,22 +125,22 @@ q           = 0;
 
 
 %-----  Wavelet Power and corresponding p-values --------
-[~,periods1_fra,coil_fra,power_fra,pv_power_fra] =...
+[~,periods1_fra,coil_fra,power_fra,pv_power_fra] =...   % France
     AWT(data(:,1),dt,dj,low_period,up_period,pad,mother,beta,gamma,sig_type,n_sur,p,q);
 
-[~,periods1_ger,coil_ger,power_ger,pv_power_ger] =...
+[~,periods1_ger,coil_ger,power_ger,pv_power_ger] =...   % Germany
     AWT(data(:,2),dt,dj,low_period,up_period,pad,mother,beta,gamma,sig_type,n_sur,p,q);
 
-[~,periods1_ita,coil_ita,power_ita,pv_power_ita] =...
+[~,periods1_ita,coil_ita,power_ita,pv_power_ita] =...   % Italy
     AWT(data(:,3),dt,dj,low_period,up_period,pad,mother,beta,gamma,sig_type,n_sur,p,q);
 
-[~,periods1_jpn,coil_jpn,power_jpn,pv_power_jpn] =...
+[~,periods1_jpn,coil_jpn,power_jpn,pv_power_jpn] =...   % Japan
     AWT(data(:,4),dt,dj,low_period,up_period,pad,mother,beta,gamma,sig_type,n_sur,p,q);
 
-[~,periods1_us,coil_us,power_us,pv_power_us] =...
+[~,periods1_us,coil_us,power_us,pv_power_us] =...       % UK
     AWT(data(:,5),dt,dj,low_period,up_period,pad,mother,beta,gamma,sig_type,n_sur,p,q);
 
-[~,periods1_uk,coil_uk,power_uk,pv_power_uk] =...
+[~,periods1_uk,coil_uk,power_uk,pv_power_uk] =...       % USA
     AWT(data(:,6),dt,dj,low_period,up_period,pad,mother,beta,gamma,sig_type,n_sur,p,q);
 
 %-------   Local maxima of WPS (ridges)  -----------
@@ -80,10 +162,6 @@ GWPS_uk  = mean(power_uk,2);
 
 %%% ---------------------------------------------------------------------
 %%% PLOT Coherency and phase differences
-% 
-% x_lim =  [t1(1) t1(end)];
-% x_lim1 = [t1(1) t1(end)];
-% x_lim2 = [t1(1) t1(end)];
 
 y_lim = [-5,10];
 y_ticks = [-5 0  5 10 ];
@@ -126,12 +204,12 @@ y_ticksCO = log2(y_ticksCO_lab);
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%% Figure 1 in the main text %%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% Figures in the main text %%%%%%%%%%%%%%%%%%%
 
 pictEnh = 0.25; 
 
 
-figure(1);
+figure;
 plotPower_fra = subplot(1,1,1);
 
     % Coherency
@@ -172,7 +250,7 @@ plotPower_fra = subplot(1,1,1);
 saveas(gcf,'../results/PS_fra','epsc')
     
     
-figure(2);  
+figure;  
  plotGWPS_fra = subplot(1,1,1);
     plot(GWPS_fra,logperiods_fra,'g','LineWidth',2)
     set(plotGWPS_fra,'YLim',y_limCO_fra,'YTick',y_ticksCO,'YTickLabel',y_ticksCO_lab1,'YDir','reverse') 
@@ -191,7 +269,7 @@ figure(2);
     
     
     
- figure(3);
+figure;
 plotPower_ger = subplot(1,1,1);
 
     % Coherency
@@ -230,7 +308,7 @@ plotPower_ger = subplot(1,1,1);
 saveas(gcf,'../results/PS_ger','epsc')
     
     
-figure(4);  
+figure;  
  plotGWPS_ger = subplot(1,1,1);
     plot(GWPS_ger,logperiods_ger,'g','LineWidth',2)
     set(plotGWPS_ger,'YLim',y_limCO_ger,'YTick',y_ticksCO,'YTickLabel',y_ticksCO_lab1,'YDir','reverse') 
@@ -249,7 +327,7 @@ saveas(gcf,'../results/GWPS_ger','epsc')
     
     
     
-    figure(5);
+figure;
 plotPower_ita = subplot(1,1,1);
 
     % Coherency
@@ -289,7 +367,7 @@ saveas(gcf,'../results/PS_ita','epsc')
     
     
     
-figure(6);  
+figure;  
  plotGWPS_ita = subplot(1,1,1);
     plot(GWPS_ita,logperiods_ita,'g','LineWidth',2)
     set(plotGWPS_ita,'YLim',y_limCO_ita,'YTick',y_ticksCO,'YTickLabel',y_ticksCO_lab1,'YDir','reverse') 
@@ -305,7 +383,7 @@ saveas(gcf,'../results/GWPS_ita','epsc')
     
     
     
- figure(7);
+figure;
 plotPower_jpn = subplot(1,1,1);
 
     % Coherency
@@ -363,7 +441,7 @@ figure(8);
     
     
     
-figure(9);
+figure;
 plotPower_us = subplot(1,1,1);
 
     % Coherency
@@ -402,7 +480,7 @@ plotPower_us = subplot(1,1,1);
 saveas(gcf,'../results/PS_us','epsc')
     
     
-figure(10);  
+figure;  
  plotGWPS_us = subplot(1,1,1);
     plot(GWPS_us,logperiods_us,'g','LineWidth',2)
     set(plotGWPS_us,'YLim',y_limCO_us,'YTick',y_ticksCO,'YTickLabel',y_ticksCO_lab1,'YDir','reverse') 
@@ -418,7 +496,7 @@ saveas(gcf,'../results/GWPS_us','epsc')
     
     
     
-figure(11);
+figure;
 plotPower_uk = subplot(1,1,1);
 
     % Coherency
@@ -457,7 +535,7 @@ plotPower_uk = subplot(1,1,1);
 saveas(gcf,'../results/PS_uk','epsc')
     
     
-figure(12);  
+figure;  
  plotGWPS_uk = subplot(1,1,1);
     plot(GWPS_uk,logperiods_uk,'g','LineWidth',2)
     set(plotGWPS_uk,'YLim',y_limCO_uk,'YTick',y_ticksCO,'YTickLabel',y_ticksCO_lab1,'YDir','reverse') 

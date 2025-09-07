@@ -1,9 +1,16 @@
+# Prepare data to produce the main results of the paper
 
+# Not a short-run noise! The low-frequency volatility of energy inflation
+# Michele Andreani, Federico Giri
+# Università Politecnica delle Marche, Piazzale Martelli n 8 Ancona, Italy
+# 
+# Finance Research Letters 51 (2023) 103477
 
 rm(list = ls())                     # Remove all objects from the environment
 
 # Import required packages
 if (!require("data.table"))  {install.packages("data.table");  library('data.table')}
+if (!require("readxl"))    {install.packages("readxl");    library('readxl')}
 if (!require("writexl"))    {install.packages("writexl");    library('writexl')}
 if (!require("lubridate")) {install.packages("lubridate"); library('lubridate')}
 
@@ -100,12 +107,12 @@ smart_download(url_jp, file_jp)
 smart_download(url_uk, file_uk)
 smart_download(url_us, file_us)
 
-dt_fr                       <- as.data.table(read_csv(file_fr))  # Read Excel files into data.tables
-dt_de                       <- as.data.table(read_csv(file_de))
-dt_it                       <- as.data.table(read_csv(file_it))
-dt_jp                       <- as.data.table(read_csv(file_jp))
-dt_uk                       <- as.data.table(read_csv(file_uk))
-dt_us                       <- as.data.table(read_csv(file_us))
+dt_fr                       <- as.data.table(read.csv(file_fr))  # Read Excel files into data.tables
+dt_de                       <- as.data.table(read.csv(file_de))
+dt_it                       <- as.data.table(read.csv(file_it))
+dt_jp                       <- as.data.table(read.csv(file_jp))
+dt_uk                       <- as.data.table(read.csv(file_uk))
+dt_us                       <- as.data.table(read.csv(file_us))
 
 # Sequential left joins
 dt <- dt_fr[dt_de, on = "observation_date"][
@@ -127,6 +134,7 @@ for (col in cols) {
 dt_yoy <- dt[, c("observation_date", grep("_yoy$", names(dt), value = TRUE)), with = FALSE]
 
 dt_yoy <- dt_yoy[observation_date >= as.Date("1971-01-01")]
+dt_yoy <- dt_yoy[observation_date <= as.Date("2021-06-01")]
 
 if (!dir.exists(data_path)) {
   dir.create(data_path, recursive = TRUE)
